@@ -25,18 +25,21 @@ export default function Login() {
       password: password1,
     };
     const url='http://localhost:62250/api/Login';
-  
-    axios.post(url,data).then((result)=>{
-      alert(result.data);
-      if(result.data=="success"){
-        setLoggedin(true);
-        navigate('home');
-      }
-    }).catch((error)=>{
-      setLoggedin(false);
-      alert(error);
-    })
-    console.log(loggedin+" from login");
+    if(email1=="" || password1==""){
+      alert("Please fill the fields");
+    }
+    else{
+      axios.post(url,data).then((result)=>{
+        alert(result.data);
+        if(result.data=="success"){
+          setLoggedin(true);
+          navigate('home');
+        }
+      }).catch((error)=>{
+        setLoggedin(false);
+        alert(error);
+      })
+    }
   }
 
   return (
@@ -52,8 +55,8 @@ export default function Login() {
           </div>
           <div className="loginRight">
             <div className="loginBox">
-              <input placeholder="Email"  className="loginInput" onChange={(e)=>handleEmail(e.target.value)}/>
-              <input placeholder="Password" type="password" className="loginInput" onChange={(e)=>handlePassword(e.target.value)}/>
+              <input required placeholder="Email"  className="loginInput" onChange={(e)=>handleEmail(e.target.value)}/>
+              <input required placeholder="Password" type="password" className="loginInput" onChange={(e)=>handlePassword(e.target.value)}/>
               
               <button className="loginButton" onClick={()=> handleSave()}>Log In</button>
                 
